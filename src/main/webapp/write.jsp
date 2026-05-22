@@ -1,43 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>교환일기 - 작성</title>
-    <style>
-        .write-container { width: 600px; margin: 50px auto; padding: 20px; font-family: Inter, sans-serif; border: 1px solid #eee; }
-        .header { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: center; }
-        .form-group { margin-bottom: 15px; display: flex; align-items: center; }
-        .form-group label { width: 50px; font-size: 12px; }
-        .form-group input { width: 150px; padding: 5px; border: 1px solid #D9D9D9; }
-        .content-area { width: 100%; height: 200px; padding: 10px; border: 1px solid #D9D9D9; margin-bottom: 15px; resize: none; box-sizing: border-box; }
-        .btn-group { display: flex; gap: 10px; }
-        .btn { padding: 10px 15px; background-color: #D9D9D9; border: none; font-size: 12px; text-decoration: none; color: black; cursor: pointer; }
-        .footer { display: flex; justify-content: space-between; align-items: center; }
-    </style>
+    <title>비밀 편지 - 쓰기</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="write-container">
+    <div class="container">
         <form action="processWrite.jsp" method="post">
-            <div class="header">
-                <div class="form-group" style="margin: 0;">
-                    <label for="toUser">To.</label>
-                    <input type="text" id="toUser" name="toUser" required>
-                </div>
-                <div class="btn-group">
-                    <a href="main.jsp" class="btn">메인으로 돌아가기</a>
-                    <a href="logout.jsp" class="btn">로그아웃</a>
-                </div>
+            <div class="header-flex">
+                <h2 class="section-title">비밀 편지 쓰기</h2>
+                <button type="button" class="btn-logout" onclick="location.href='logout.jsp'">로그아웃</button>
             </div>
             
-            <textarea class="content-area" name="content" placeholder="보내고 싶은 내용을 작성하세요." required></textarea>
+            <div class="form-group">
+                <label for="toUser">받는 사람 (To)</label>
+                <select id="toUser" name="toUser" class="form-control" required>
+                    <option value="">수신자를 선택하세요</option>
+                    <option value="A">A</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                </select>
+            </div>
             
-            <div class="footer">
-                <div class="form-group" style="margin: 0;">
-                    <label for="fromUser">From.</label>
-                    <input type="text" id="fromUser" name="fromUser" required>
-                </div>
-                <button type="submit" class="btn">일기 보내기</button>
+            <div class="form-group">
+                <label for="content">편지 내용</label>
+                <textarea id="content" name="content" class="form-control" placeholder="전달할 비밀 메시지를 작성하세요..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="fromUser">보내는 사람 (From)</label>
+                <input type="text" id="fromUser" name="fromUser" class="form-control" value="나 (B)" readonly>
+            </div>
+            
+            <div class="btn-group unequal">
+                <a href="main.jsp" class="btn btn-secondary">취소</a>
+                <button type="submit" class="btn btn-primary">보내기</button>
             </div>
         </form>
     </div>

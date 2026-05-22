@@ -3,28 +3,23 @@
     String userName = request.getParameter("userId") != null ? request.getParameter("userId") : "00";
 %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>교환일기 - 메인</title>
-    <style>
-        .main-container { width: 500px; margin: 50px auto; padding: 20px; font-family: Inter, sans-serif; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .greeting { font-size: 14px; }
-        .btn-group { display: flex; gap: 10px; }
-        .btn { padding: 10px 15px; background-color: #D9D9D9; border: none; font-size: 12px; text-decoration: none; color: black; cursor: pointer; }
-    </style>
+    <title>비밀 편지 - 메인</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="main-container">
-        <div class="header">
-            <div class="greeting">안녕하세요, <%= userName %>님</div>
-            <a href="logout.jsp" class="btn">로그아웃</a>
+    <div class="container">
+        <div class="header-flex">
+            <h2 class="section-title">환영합니다, <%= userName %>님</h2>
+            <button type="button" class="btn-logout" onclick="location.href='logout.jsp'">로그아웃</button>
         </div>
-        <div class="btn-group">
-            <a href="write.jsp" class="btn">일기 작성하기</a>
-            <a href="inbox.jsp" class="btn">보관함으로 이동하기</a>
-        </div>
+        <p style="color: #7f8c8d; font-size: 0.9rem; text-align: center; margin-bottom: 25px;">
+            새로운 비밀 편지를 작성하거나 도착한 편지를 확인하세요.
+        </p>
+        <a href="write.jsp" class="btn btn-primary" style="margin-bottom: 10px;">비밀 편지 쓰기</a>
+        <a href="inbox.jsp" class="btn btn-secondary">내 편지함 보기</a>
     </div>
 </body>
 </html>

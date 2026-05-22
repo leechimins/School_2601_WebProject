@@ -1,35 +1,61 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    // 실제 환경에서는 세션(session)에서 로그인된 아이디를 가져와야 함.
+    // 테스트 목업을 위해 현재 사용자를 'B'로 가정함.
+    String currentUser = "B";
+%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>교환일기 - 보관함</title>
-    <style>
-        .inbox-container { width: 600px; margin: 50px auto; padding: 20px; font-family: Inter, sans-serif; }
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #D9D9D9; padding-bottom: 10px; margin-bottom: 20px; }
-        .title { font-size: 16px; font-weight: bold; }
-        .btn-group { display: flex; gap: 10px; }
-        .btn { padding: 8px 12px; background-color: #D9D9D9; border: none; font-size: 12px; text-decoration: none; color: black; cursor: pointer; }
-        .diary-list { list-style: none; padding: 0; }
-        .diary-item { padding: 10px; background-color: #f9f9f9; border: 1px solid #D9D9D9; margin-bottom: 10px; cursor: pointer; display: block; text-decoration: none; color: black; font-size: 12px; }
-        .diary-item:hover { background-color: #e9e9e9; }
-    </style>
+    <title>비밀 편지 - 보관함</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function tryOpenLetter(receiver, url) {
+            const currentUser = '<%= currentUser %>';
+            
+            // 수신자와 현재 사용자가 일치하지 않는 경우
+            if (receiver !== currentUser) {
+                alert("열람 실패: 수신자의 개인키(사설키)로 전자봉투를 복호화할 수 없습니다.\n본인에게 온 편지만 열람할 수 있습니다.");
+                return;
+            }
+            
+            // 정상 복호화 시 읽기 페이지로 이동
+            location.href = url;
+        }
+    </script>
 </head>
 <body>
-    <div class="inbox-container">
-        <div class="header">
-            <div class="title">일기 보관함</div>
-            <div class="btn-group">
-                <a href="main.jsp" class="btn">메인으로 돌아가기</a>
-                <a href="logout.jsp" class="btn">로그아웃</a>
-            </div>
+    <div class="container">
+        <div class="header-flex">
+            <h2 class="section-title">받은 편지함</h2>
+            <button type="button" class="btn-logout" onclick="location.href='logout.jsp'">로그아웃</button>
         </div>
         
-        <ul class="diary-list">
-            <li><a href="read.jsp?id=1" class="diary-item">A가 B에게 보내는 편지</a></li>
-            <li><a href="read.jsp?id=2" class="diary-item">A가 C에게 보내는 편지</a></li>
-            <li><a href="read.jsp?id=3" class="diary-item">B가 A에게 보내는 편지</a></li>
+        <ul class="letter-list">
+            <li class="letter-item" onclick="tryOpenLetter('B', 'read.jsp?id=1')">
+                <div class="letter-info">
+                    <div class="receiver">받는이: B</div>
+                    <div class="sender">보낸이: A</div>
+                </div>
+            </li>
+            
+            <li class="letter-item" onclick="tryOpenLetter('C', 'read.jsp?id=2')">
+                <div class="letter-info">
+                    <div class="receiver">받는이: C</div>
+                    <div class="sender">보낸이: A</div>
+                </div>
+            </li>
+            
+            <li class="letter-item" onclick="tryOpenLetter('A', 'read.jsp?id=3')">
+                <div class="letter-info">
+                    <div class="receiver">받는이: A</div>
+                    <div class="sender">보낸이: B</div>
+                </div>
+            </li>
         </ul>
+        
+        <a href="main.jsp" class="btn btn-secondary" style="margin-top: 20px;">메인으로 돌아가기</a>
     </div>
 </body>
 </html>
