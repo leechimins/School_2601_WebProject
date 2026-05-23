@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.security.MessageDigest" %>
-<%@ page import="java.util.concurrent.ConcurrentHashMap" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="security.KeyManager" %>
-<%@ page import="java.io.File" %>
+
 <%
+if (application.getAttribute("USER_DB") == null) {
+	application.setAttribute("USER_DB", no_security.UserDB.getInstance());
+}
+no_security.UserDB userDB = (no_security.UserDB) application.getAttribute("USER_DB");
+String inputId = request.getParameter("userId");
+
+if (userDB.containsUser(inputId)) {
+
+}
+%>
+
+/*
     request.setCharacterEncoding("UTF-8");
     String userId = request.getParameter("userId");
     String userPw = request.getParameter("userPw");
@@ -69,4 +77,5 @@
             out.println("<script>alert('RSA 키 생성 중 오류가 발생했습니다.'); history.back();</script>");
         }
     }
+    */
 %>
