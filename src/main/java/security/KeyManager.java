@@ -26,7 +26,7 @@ public class KeyManager {
     private static final String ALGORITHM_P = "RSA";
     private static final int SIZE_P = 1024;
     
-    public boolean generateAndSaveKeyPair(String userId) throws NoSuchAlgorithmException {
+    public boolean generateAndSaveKeyPair(String id, String path) throws NoSuchAlgorithmException {
     	
     	// 1-1. AES 키 쌍 생성 (대칭키)
     	KeyGenerator keyGen1 = KeyGenerator.getInstance(ALGORITHM_S);
@@ -43,10 +43,9 @@ public class KeyManager {
 		
 		// 2. 키를 파일로 저장 (직렬화 활용)
 		// 자원동반-try문 (try-with-resources) 사용 - 코딩 가이드 준수 (규칙 43)
-		String secKeyPath = "/WEB-INF/keys/" + userId + "_secret.key";
-		// 시작 경로는 jsp에서 application.getRealPath()로 받아 매개변수로 넘겨주는게 더 좋긴하다.
-		String pubKeyPath = "/WEB-INF/keys/" + userId + "_public.key";
-		String priKeyPath = "/WEB-INF/keys/" + userId + "_private.key";
+		String secKeyPath = path + "/" + id + "_secret.key";
+		String pubKeyPath =  path + "/" + id + "_public.key";
+		String priKeyPath =  path + "/" + id + "_private.key";
 		
 		try (FileOutputStream fosSec = new FileOutputStream(secKeyPath);
 		     ObjectOutputStream oosSec = new ObjectOutputStream(fosSec)) {

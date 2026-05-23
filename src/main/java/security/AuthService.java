@@ -5,18 +5,19 @@ import no_security.User;
 import no_security.UserDB;
 
 public class AuthService {
+	private UserDB db;
 	
-	private AuthService() { }
+	private AuthService() {
+		this.db = UserDB.getInstance();
+	}
 	private static AuthService instance = new AuthService();
 	public static AuthService getInstance() {
 		return instance;
 	}
 	
 	public boolean login(String id, String pw) throws NoSuchAlgorithmException {
-		UserDB db = UserDB.getInstance();
-
 		if (db.containsUser(id) == false) {
-			return register(id, pw);
+			return false;
 		}
 
 		User user = db.getUser(id);
@@ -28,10 +29,9 @@ public class AuthService {
 		}
 	}
 	
-	public boolean register(String id, String pw) throws NoSuchAlgorithmException {
+	public boolean register(String id, String pw, String path) throws NoSuchAlgorithmException {
 		KeyManager keyManager = KeyManager.getInstance();
-		if (keyManager.generateAndSaveKeyPair(id)) {
-			UserDB db = UserDB.getInstance();
+		if (keyManager.generateAndSaveKeyPair(id, path)) {
 			db.addUser(new User(id, pw));
 			return true;
 		}
