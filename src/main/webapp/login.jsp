@@ -8,8 +8,6 @@
 </head>
 <body>
 
-
-
 <h2>비밀 편지 시작하기</h2>
 처음 오신 경우 자동으로 가입 및 보안 키가 발급됩니다.
 <form action="processLogin.jsp" method="post">

@@ -49,7 +49,7 @@ public class KeyManager {
 		
 		try (FileOutputStream fosSec = new FileOutputStream(secKeyPath);
 		     ObjectOutputStream oosSec = new ObjectOutputStream(fosSec)) {
-			oosSec.writeObject(secKeyPath);
+			oosSec.writeObject(secretKey);
 		} catch(Exception e) {
 			e.printStackTrace();
 			// 여기를 사용자 정의 예외로 수정해도 좋을 듯?
